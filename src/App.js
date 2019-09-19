@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import List from './components/todos/List'
+import TodoForm from './components/todos/ToDoForm';
 class App extends Component {
   state = {
     todos: [    
@@ -9,22 +10,27 @@ class App extends Component {
 
     ]
   }
+ addTodo = (name) => {
+  const { todos } = this.state
+  const todo = { name, complete: false, id: this.getUniqId() }
+  this.setState({ todos: [todo, ...todos] })
+ }
+  // renderTodos = () => {
+  //   const { todos } = this.state
+  //   return todos.map( todo => {
+  //     return (
+  //       <li>{todo.name}</li>
 
-  renderTodos = () => {
-    const { todos } = this.state
-    return todos.map( todo => {
-      return (
-        <li>{todo.name}</li>
+  //     )
 
-      )
-
-    })
-  }
+  //   })
+  // }
 
   render () {
     const { todos } = this.state
     return (
       <div>
+        <TodoForm addTodo={this.addTodo}
         <List name="Bucket List" items={todos} />
 
       </div>
